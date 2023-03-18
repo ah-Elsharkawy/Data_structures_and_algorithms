@@ -51,7 +51,7 @@ class Stack
 
     bool isEmpty()
     {
-        return (this->length ? true : false);
+        return (this->length ? false : true);
     }
 
     int size()
