@@ -171,7 +171,36 @@ public:
         }
         return -1;
     }
+    // insert a given value at the given index
+    // time complexity: O(n) where n is the length of the listS
+    void insertAt(int value, int index)
+    {
+        if(index < 0)
+        {
+            cout << "please enter a valid index\n";
+            return;
+        }
+    
+        if(index == 0)
+        {
+        add(value);
+        return;
+        }
 
+        Node* pre = nullptr;
+        Node* curr = this->head;
+        Node* newNode = new Node(value);
+        while(index--)
+        {   
+            pre = curr;
+            curr = curr->next;
+        }
+        pre->next = newNode;
+        newNode->next = curr;
+        this->length++;
+    }
+
+    // returns the length of the list
     int size()
     {
         return this->length;
@@ -180,9 +209,9 @@ public:
 
 int main()
 {
-    int x;
+    /* int x;
     cout << "enter the value you want to remove: ";
-    cin >> x;
+    cin >> x; */
     linkedList list;
     list.add(1);
     list.add(2);
@@ -198,12 +227,17 @@ int main()
 
     cout << "the size of the linked list is " << list.size() << endl;
     list.print();
-    cout << "the value is at index: " << list.findValue(x) << endl;
-    list.removeByValue(x);
-    cout << "the new size of the list " << list.size() << endl;
-    list.print();
+    /* cout << "the value is at index: " << list.findValue(x) << endl;
+    list.removeByValue(x); */
     cout << "the list after reversing \n";
     list.reverse();
     list.print();
+    cout << "enter the value and the index to be inserted at respectively: \n";
+    int index,value;
+    cin >> value >> index;
+    list.insertAt(value, index);
+    cout << "the size of the linked list is " << list.size() << endl;
+    list.print();
+    
     return 0;
 }
