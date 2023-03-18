@@ -58,7 +58,7 @@ public:
         this->head = this->head->next;
         this->length--;
     }
-    
+
     // time complexity: O(n) where n is the length of the list
     void removalMessage(Node *node)
     {
@@ -134,6 +134,24 @@ public:
             }
         }
     }
+    // reverse the list by reversing the addresses of the nodes
+    // complexity time: O(n) where n is the list size
+    void reverse()
+    {
+        if(this->length == 0 || this->length == 1)
+        return;
+        Node* pre = nullptr;
+        Node* curr = this->head;
+        Node* next = curr->next;
+        while(curr != nullptr)
+        {
+            next = curr->next;
+            curr->next = pre;
+            pre = curr;
+            curr = next;
+        }
+        this->head = pre;
+    }
 
     // returns the first index of the value
     // time complexity: O(n) where n is the length of the list
@@ -167,21 +185,25 @@ int main()
     cin >> x;
     linkedList list;
     list.add(1);
-    list.add(1);
-    list.add(1);
-    list.add(1);
-    list.add(1);
+    list.add(2);
+    list.add(3);
+    list.add(4);
+    list.add(5);
     list.add(1);
     list.add(2);
-    list.add(1);
-    list.add(1);
-    list.add(1);
+    list.add(3);
+    list.add(4);
+    list.add(5);
+
 
     cout << "the size of the linked list is " << list.size() << endl;
     list.print();
     cout << "the value is at index: " << list.findValue(x) << endl;
     list.removeByValue(x);
     cout << "the new size of the list " << list.size() << endl;
+    list.print();
+    cout << "the list after reversing \n";
+    list.reverse();
     list.print();
     return 0;
 }
