@@ -1,17 +1,13 @@
 "use strict";
-class _Node {
-    constructor(data) {
-        this.data = data;
-        this.next = null;
-    }
-}
+Object.defineProperty(exports, "__esModule", { value: true });
+const _Node_1 = require("./_Node");
 class Stack {
     constructor() {
         this.top = null;
         this.length = 0;
     }
     push(value) {
-        let newNode = new _Node(value);
+        let newNode = new _Node_1._Node(value);
         newNode.next = this.top;
         this.top = newNode;
         this.length++;

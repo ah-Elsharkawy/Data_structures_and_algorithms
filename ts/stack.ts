@@ -1,16 +1,4 @@
-
-class _Node<T>
-{
-    data: T;
-    next: _Node<T> | null;
-
-    constructor(data: T)
-    {
-        this.data = data;
-        this.next = null;
-    }
-}
-
+import { _Node } from "./_Node";
 class Stack
 {
     top: _Node<any> | null;
