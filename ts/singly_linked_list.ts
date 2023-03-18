@@ -116,6 +116,23 @@ class linked_list
     size(): number{
         return this.length;
     }
+
+    reverse(): void
+    {   if(this.length == 0 || this.length == 1)
+        return;
+        let pre = null;
+        let curr = this.head;
+        let next = curr?.next ?? null;
+
+        while(curr != null)
+        {
+            next = curr.next;
+            curr.next = pre;
+            pre = curr;
+            curr = next;
+        }
+        this.head = pre;
+    }
 }
 
 let list = new linked_list();
@@ -137,3 +154,5 @@ list.add(1);
 console.log("the size of the linked list is ", list.size());
 list.print();
 console.log(`the element ${n} is found at index ${list.findValue(n)}`)
+console.log(`the list after reversing is ${list.reverse()}`);
+list.print();

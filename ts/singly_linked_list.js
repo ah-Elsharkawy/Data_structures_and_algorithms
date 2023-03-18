@@ -111,6 +111,21 @@ class linked_list {
     size() {
         return this.length;
     }
+    reverse() {
+        var _a;
+        if (this.length == 0 || this.length == 1)
+            return;
+        let pre = null;
+        let curr = this.head;
+        let next = (_a = curr === null || curr === void 0 ? void 0 : curr.next) !== null && _a !== void 0 ? _a : null;
+        while (curr != null) {
+            next = curr.next;
+            curr.next = pre;
+            pre = curr;
+            curr = next;
+        }
+        this.head = pre;
+    }
 }
 let list = new linked_list();
 const n = readlineSync.questionInt('Enter a number: ');
@@ -130,3 +145,5 @@ list.add(1);
 console.log("the size of the linked list is ", list.size());
 list.print();
 console.log(`the element ${n} is found at index ${list.findValue(n)}`);
+console.log(`the list after reversing is ${list.reverse()}`);
+list.print();
