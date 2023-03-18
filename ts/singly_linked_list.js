@@ -126,9 +126,31 @@ class linked_list {
         }
         this.head = pre;
     }
+    insertAt(index, value) {
+        var _a;
+        if (index < 0) {
+            console.log("please enter a valid index");
+            return;
+        }
+        if (index == 0) {
+            this.add(value);
+            return;
+        }
+        let pre = null;
+        let curr = this.head;
+        let newNode = new _Node(value);
+        while (index--) {
+            pre = curr;
+            curr = (_a = curr === null || curr === void 0 ? void 0 : curr.next) !== null && _a !== void 0 ? _a : null;
+        }
+        pre.next = newNode;
+        newNode.next = curr;
+        this.length++;
+    }
 }
 let list = new linked_list();
-const n = readlineSync.questionInt('Enter a number: ');
+const value = readlineSync.questionInt('Enter a number: ');
+let index = readlineSync.questionInt('Enter the index: ');
 list.add(1);
 list.add(2);
 list.add(3);
@@ -144,6 +166,9 @@ list.add(1);
 list.add(1);
 console.log("the size of the linked list is ", list.size());
 list.print();
-console.log(`the element ${n} is found at index ${list.findValue(n)}`);
 console.log(`the list after reversing is ${list.reverse()}`);
+list.print();
+console.log("the list after insertion\n");
+list.insertAt(index, value);
+console.log("the size of the linked list is ", list.size());
 list.print();

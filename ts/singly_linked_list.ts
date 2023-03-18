@@ -116,7 +116,8 @@ class linked_list
     size(): number{
         return this.length;
     }
-
+    // reversing the list by reversing the pointers of the nodes
+    // time complexity: O(n) where n is the length of the array
     reverse(): void
     {   if(this.length == 0 || this.length == 1)
         return;
@@ -133,10 +134,39 @@ class linked_list
         }
         this.head = pre;
     }
+    // inserting a given value at a given index
+    // time complexity: O(n) where n is the length of the array
+    insertAt(index: number, value:any): void
+    {
+        if(index < 0)
+        {
+            console.log("please enter a valid index");
+            return;
+        }
+
+        if(index == 0)
+        {
+            this.add(value);
+            return;
+        }
+
+        let pre = null;
+        let curr = this.head;
+        let newNode = new _Node(value);
+        while(index--)
+        {
+            pre = curr;
+            curr = curr?.next ?? null;
+        }
+        pre!.next = newNode;
+        newNode.next = curr;
+        this.length++;
+    }
 }
 
 let list = new linked_list();
-const n: number = readlineSync.questionInt('Enter a number: ');
+const value: number = readlineSync.questionInt('Enter a number: ');
+let index: number = readlineSync.questionInt('Enter the index: ');
 list.add(1);
 list.add(2);
 list.add(3);
@@ -153,6 +183,9 @@ list.add(1);
 
 console.log("the size of the linked list is ", list.size());
 list.print();
-console.log(`the element ${n} is found at index ${list.findValue(n)}`)
 console.log(`the list after reversing is ${list.reverse()}`);
+list.print();
+console.log("the list after insertion\n")
+list.insertAt(index, value);
+console.log("the size of the linked list is ", list.size());
 list.print();
