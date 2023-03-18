@@ -111,6 +111,8 @@ class linked_list {
     size() {
         return this.length;
     }
+    // reversing the list by reversing the pointers of the nodes
+    // time complexity: O(n) where n is the length of the list
     reverse() {
         var _a;
         if (this.length == 0 || this.length == 1)
@@ -126,6 +128,8 @@ class linked_list {
         }
         this.head = pre;
     }
+    // inserting a given value at a given index
+    // time complexity: O(n) where n is the length of the list
     insertAt(index, value) {
         var _a;
         if (index < 0) {
