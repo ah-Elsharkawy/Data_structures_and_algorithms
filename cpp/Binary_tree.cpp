@@ -85,6 +85,24 @@ public:
         this->size++;
     }
 
+    bool search(int value, TNode *newNode)
+    {
+        if(newNode == nullptr)
+            return false;
+        cout << newNode->data << " "; // this line to print every element in the path of the value
+        if(newNode->data == value)
+            return true;
+
+        if(newNode->data < value)
+        {
+            search(value, newNode->right);
+        }
+        else
+        {
+            search(value, newNode->left);
+        }
+    }
+
     void pre_order(TNode *start)
     {
         TNode* node = start;
@@ -144,50 +162,54 @@ public:
         }
     }
 
-    
-/*     void insert(int val) {
-        TNode* newNode = new TNode(val);
-        if (root == nullptr) {
-            root = newNode;
-            return;
-        }
-
-        TNode* curr = root;
-        while (true) {
-            if (val < curr->data) {
-                if (curr->left == nullptr) {
-                    curr->left = newNode;
-                    return;
-                }
-                curr = curr->left;
-            }
-            else {
-                if (curr->right == nullptr) {
-                    curr->right = newNode;
-                    return;
-                }
-                curr = curr->right;
-            }
-        }
-    } */
-
-    void printTree(TNode *root, int space = 0, int height = 10)
+    // return the tree as a string where nodes are seperated by '-' and levels are seperated by '|'
+    string printTree()
     {
-        if (root == nullptr)
-        {
-            return;
-        }
-        space += height;
-        printTree(root->right, space, height);
+        queue<TNode*> p; // primary queue
+        queue<TNode*> s; // secondary queue
+        string res = ""; // the result
 
-        cout << endl;
-        for (int i = height; i < space; i++)
-        {
-            cout << " ";
-        }
-        cout << root->data << "\n";
+        p.push(this->root);
+        res += to_string(this->root->data);
+        res += " | ";    // this sign '|' is used to seperate between levels it means the end of this level and the start of the next
 
-        printTree(root->left, space, height);
+        while(!p.empty())
+        {   
+            // push all the children of the current level nodes to the secondery queue (s) from left to right
+            while (!p.empty())
+            {
+                s.push(p.front()->left);
+                s.push(p.front()->right);
+                p.pop();
+            }
+
+            // then add the data of every node to the result string whether it is null or not 
+            // and push the non-empty nodes to the primary queue
+            while (!s.empty())
+            {
+                if(s.front() == nullptr)
+                {
+                    res += "n";
+                    
+                    s.pop();
+                }
+
+                else
+                {
+                    res += to_string(s.front()->data);
+                    p.push(s.front());
+                    s.pop();
+                }
+
+                if(s.empty())
+                    res += " | ";
+                else
+                {
+                    res += "-";
+                }
+            }
+        }
+        return res;
     }
 
     int count()
@@ -221,4 +243,8 @@ int main()
     cout << "the level order:\n";
     t.level_order();
     cout << endl;
+    /* int n; cin >> n;
+    cout << (t.search(n, t.root) ? "found" : "not found") << endl; */
+    cout << "the string representation of the tree:\n" << t.printTree() << endl; 
+
 }
